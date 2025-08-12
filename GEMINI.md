@@ -1,0 +1,36 @@
+## Gemini Added Memories
+
+- For SystemC modules, always use SC_HAS_PROCESS and define constructors in the .cpp file for consistency.
+- **Project Context:** GPU performance modeling using SimPy for H100 (Hopper) and B200 (Blackwell) GPUs, including storage I/O.
+- **Key Decisions & Parameters:**
+    - **H100 Parameters (Hopper):**
+        - CUDA Cores (FP32): 16,896
+        - Tensor Cores: 4th Gen
+        - Memory: HBM3, 80 GB, 3.35 TB/s BW
+        - L2 Cache: 50 MB
+        - NVLink: 900 GB/s
+        - PCIe: Gen 5
+        - SMs: 132, Max Warps/SM: 64
+    - **B200 Parameters (Blackwell - Placeholder):**
+        - CUDA Cores (FP32): 36,000
+        - Tensor Cores: 5th Gen (2x H100 performance)
+        - Memory: HBM3e, 192 GB, 8 TB/s BW
+        - L2 Cache: 128 MB
+        - NVLink: 1.8 TB/s
+        - PCIe: Gen 5
+        - SMs: 288, Max Warps/SM: 128
+    - **PCIe 5.0 NVMe SSD Parameters:**
+        - Sequential Read: 14.5 GB/s
+        - Sequential Write: 14 GB/s
+        - Random Read IOPS: 2.3 M
+        - Random Write IOPS: 1.6 M
+        - Latency: 10-100 us
+    - **SimPy Modeling Approach:**
+        - Focus on performance characteristics (latency, bandwidth), not actual memory allocation.
+        - Detailed GPU hierarchy: SMs, Warp Schedulers, Warps.
+        - System components: StorageSystem, HostMemory, PCIeInterface, GPU (MemorySystem, SMs).
+    - **Workload Scenarios:**
+        - VectorDB Search
+        - LLM KV Cache Offloading
+        - GNN Training
+    - **Compute Cycle to Time Conversion:** 1 cycle = 1 microsecond (for better visibility of GPU computation time).
